@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * Created by Tretiak Anton on 09.11.2016.
  */
-public class UserDaoImpl implements UserDAO {
-    private List<User> users = new ArrayList<User>();
+public class UserDAOImpl implements UserDAO {
+    private List<User> users = new ArrayList<>();
 
 
     public List<User> getAll() {
-        return new ArrayList<User>(users);
+        return new ArrayList<>(users);
     }
 
     public void add(User entity) {

@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by Tretiak Anton on 09.11.2016.
  */
-public class LotDaoImpl implements LotDAO {
-    private List<Lot> lots = new ArrayList<Lot>();
+public class LotDAOImpl implements LotDAO {
+    private List<Lot> lots = new ArrayList<>();
 
     public List<Lot> getAll() {
-        return new ArrayList<Lot>(lots);
+        return new ArrayList<>(lots);
     }
 
     public void add(Lot entity) {
