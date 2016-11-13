@@ -2,13 +2,16 @@ package dao.impl;
 
 import dao.api.UserDAO;
 import domain.User;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Tretiak Anton on 09.11.2016.
  */
+@Component
 public class UserDAOImpl implements UserDAO {
     private List<User> users = new ArrayList<>();
 
@@ -28,6 +31,7 @@ public class UserDAOImpl implements UserDAO {
     /**
      * Generates few users for testing purposes
      */
+    @PostConstruct
     public void generateTestUsers(){
         users.add(new User(1, "Paltishko", "Anton", "Tretiak"));
         users.add(new User(2, "Shoom", "John", "Smith"));

@@ -6,6 +6,8 @@ import domain.Item;
 import domain.Lot;
 import domain.User;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import service.api.AuctionService;
 
 import java.math.BigDecimal;
@@ -17,9 +19,12 @@ import java.util.stream.Collectors;
  */
 
 @Setter
+@Component
 public class AuctionServiceImpl implements AuctionService {
 
+    @Autowired
     private LotDAO lotDAO;
+    @Autowired
     private UserDAO userDAO;
 
 

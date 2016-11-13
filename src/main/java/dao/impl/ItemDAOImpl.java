@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.api.ItemDAO;
 import domain.Item;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 /**
  * Created by Tretiak Anton on 09.11.2016.
  */
+
+@Component
 public class ItemDAOImpl implements ItemDAO {
     private List<Item> items = new ArrayList<>();
 
