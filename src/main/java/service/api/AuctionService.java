@@ -33,4 +33,11 @@ public interface AuctionService {
      * @return List of all users
      */
     List<User> getUsers();
+
+
+    /**
+     * Returns all registered items
+     * @return List of all items
+     */
+    List<Item> getItems();
 }

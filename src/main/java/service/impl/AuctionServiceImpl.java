@@ -1,5 +1,6 @@
 package service.impl;
 
+import dao.api.ItemDAO;
 import dao.api.LotDAO;
 import dao.api.UserDAO;
 import domain.Item;
@@ -7,10 +8,11 @@ import domain.Lot;
 import domain.User;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import service.api.AuctionService;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,21 +21,24 @@ import java.util.stream.Collectors;
  */
 
 @Setter
-@Component
+@Service
 public class AuctionServiceImpl implements AuctionService {
 
     @Autowired
     private LotDAO lotDAO;
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private ItemDAO itemDAO;
+
 
 
     public Lot createLot(Item item, User owner, BigDecimal startPrice) {
         Lot lot = new Lot();
-        lot.setId(lotDAO.getAll().size() + 1);
         lot.setItem(item);
         lot.setOwner(owner);
         lot.setStartPrice(startPrice);
+        lot.setDatePlaced(new Date());
         lotDAO.add(lot);
         return lot;
     }
@@ -44,5 +49,9 @@ public class AuctionServiceImpl implements AuctionService {
 
     public List<User> getUsers() {
         return userDAO.getAll();
+    }
+
+    public List<Item> getItems() {
+        return itemDAO.getAll();
     }
 }

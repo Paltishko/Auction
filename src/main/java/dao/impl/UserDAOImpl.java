@@ -2,10 +2,14 @@ package dao.impl;
 
 import dao.api.UserDAO;
 import domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 /**
@@ -13,30 +17,47 @@ import java.util.List;
  */
 @Component
 public class UserDAOImpl implements UserDAO {
-    private List<User> users = new ArrayList<>();
 
+    @Autowired
+    EntityManagerFactory emf;
 
     public List<User> getAll() {
-        return new ArrayList<>(users);
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT u FROM User u").getResultList();
     }
 
+    @Transactional
     public void add(User entity) {
-        users.add(entity);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        em.merge(entity);
+        transaction.commit();
+        em.close();
     }
 
+    @Transactional
     public void remove(User entity) {
-        users.remove(entity);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        em.remove(entity);
+        transaction.commit();
+        em.close();
     }
 
     /**
      * Generates few users for testing purposes
      */
+    @Transactional
     @PostConstruct
     public void generateTestUsers(){
-        users.add(new User(1, "Paltishko", "Anton", "Tretiak"));
-        users.add(new User(2, "Shoom", "John", "Smith"));
-        users.add(new User(3, "Rambo", "Silvester", "Stallone"));
-        users.add(new User(4, "T800", "Arnord", "Shwarcneger"));
-        users.add(new User(5, "Tureckiy", "Jason", "Stethem"));
+        add(new User(1, "Paltishko", "Anton", "Tretiak"));
+        add(new User(2, "Shoom", "John", "Smith"));
+        add(new User(3, "Rambo", "Silvester", "Stallone"));
+        add(new User(4, "T800", "Arnord", "Shwarcneger"));
+        add(new User(5, "Tureckiy", "Jason", "Stethem"));
     }
 }
