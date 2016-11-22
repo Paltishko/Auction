@@ -22,6 +22,10 @@ public interface AuctionService {
      */
     Lot createLot(Item item, User owner, BigDecimal startPrice);
 
+    void createItem(Item item);
+
+    void createUser(User user);
+
     /**
      * Returns all lots that dont have end date yet
      * @return List of active lots

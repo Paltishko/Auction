@@ -54,4 +54,12 @@ public class AuctionServiceImpl implements AuctionService {
     public List<Item> getItems() {
         return itemDAO.getAll();
     }
+
+    public void createItem(Item item){
+        itemDAO.add(item);
+    }
+
+    public void createUser(User user){
+        userDAO.add(user);
+    }
 }
