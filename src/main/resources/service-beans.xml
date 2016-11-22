@@ -9,9 +9,10 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <import resource="dao-context.xml"/>
+    <import resource="repo-context.xml"/>
 
     <context:annotation-config/>
-    <context:component-scan base-package="dao"/>
+    <!--<context:component-scan base-package="dao"/>-->
     <context:component-scan base-package="service"/>
 
 </beans>

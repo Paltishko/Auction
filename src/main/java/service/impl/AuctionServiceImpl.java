@@ -1,20 +1,19 @@
 package service.impl;
 
-import dao.api.ItemDAO;
-import dao.api.LotDAO;
-import dao.api.UserDAO;
 import domain.Item;
 import domain.Lot;
 import domain.User;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import repository.ItemRepository;
+import repository.LotRepository;
+import repository.UserRepository;
 import service.api.AuctionService;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Tretiak Anton on 09.11.2016.
@@ -25,12 +24,11 @@ import java.util.stream.Collectors;
 public class AuctionServiceImpl implements AuctionService {
 
     @Autowired
-    private LotDAO lotDAO;
+    private LotRepository lotRepository;
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
     @Autowired
-    private ItemDAO itemDAO;
-
+    private ItemRepository itemRepository;
 
 
     public Lot createLot(Item item, User owner, BigDecimal startPrice) {
@@ -39,27 +37,29 @@ public class AuctionServiceImpl implements AuctionService {
         lot.setOwner(owner);
         lot.setStartPrice(startPrice);
         lot.setDatePlaced(new Date());
-        lotDAO.add(lot);
+        lotRepository.save(lot);
         return lot;
     }
 
     public List<Lot> getActiveLots() {
-        return lotDAO.getAll().stream().filter(lot -> lot.getDateEnd() == null).collect(Collectors.toList());
+        //TODO
+        return (List<Lot>) lotRepository.findAll();
+//                lotDAO.getAll().stream().filter(lot -> lot.getDateEnd() == null).collect(Collectors.toList());
     }
 
     public List<User> getUsers() {
-        return userDAO.getAll();
+        return (List<User>) userRepository.findAll();
     }
 
     public List<Item> getItems() {
-        return itemDAO.getAll();
+        return (List<Item>) itemRepository.findAll();
     }
 
     public void createItem(Item item){
-        itemDAO.add(item);
+        itemRepository.save(item);
     }
 
     public void createUser(User user){
-        userDAO.add(user);
+        userRepository.save(user);
     }
 }
